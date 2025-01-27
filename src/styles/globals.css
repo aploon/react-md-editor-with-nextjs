@@ -23,3 +23,9 @@ body {
 .markdown-body img {
   display: inline !important;
 }
+
+body .w-md-editor-text-pre > code,
+body .w-md-editor-text-input {
+  font-size: 16px !important;
+  line-height: 24px !important;
+}

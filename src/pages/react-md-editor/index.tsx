@@ -32,6 +32,7 @@ export default function EditorPage({ readmeContent }: { readmeContent: string })
                     value={markdown} 
                     onChange={(value) => setMarkdown(value || '')}
                     height={400}
+                    preview="edit"
                 />
             </div>
 
