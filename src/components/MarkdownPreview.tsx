@@ -6,6 +6,7 @@ import rehypeRaw from 'rehype-raw';
 import rehypeStringify from 'rehype-stringify';
 import hljs from 'highlight.js';
 import 'github-markdown-css';
+// import 'github-markdown-css/github-markdown-dark.css';
 import 'highlight.js/styles/github.css';
 import useDarkMode from '@/hooks/useDarkMode';
 
