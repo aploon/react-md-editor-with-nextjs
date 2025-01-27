@@ -1,20 +1,35 @@
-import React, { useState } from "react";
-import MDEditor from '@uiw/react-md-editor';
+// pages/editor.tsx
+import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
+import MarkdownPreview from '@/components/MarkdownPreview';
 
+const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
 
+export default function EditorPage() {
+    const [markdown, setMarkdown] = useState<string>(`
+# Titre principal
 
-export default function Editor() {
+Voici un paragraphe avec du **texte en gras** et *italique*.
 
-    const [value, setValue] = useState("**Hello world!!!**");
+\`\`\`javascript
+// Exemple de code
+const sayHello = () => {
+    console.log('Hello, world!');
+};
+\`\`\`
+
+- Liste
+- À
+- Puces
+`);
+
     return (
-      <div className="container">
-        <MDEditor
-          value={value}
-          onChange={(value) => setValue(value || "")}
-          height={700}
-          highlightEnable={true}
-        />
-        <MDEditor.Markdown source={value} style={{ whiteSpace: 'pre-wrap' }} />
-      </div>
+        <div className="container mx-auto py-8">
+            <h1 className="text-2xl font-bold mb-4">Éditeur Markdown</h1>
+            <MDEditor value={markdown} onChange={(value) => setMarkdown(value || '')} />
+
+            <h2 className="text-xl font-semibold mt-8">Aperçu :</h2>
+            <MarkdownPreview markdown={markdown} />
+        </div>
     );
 }
