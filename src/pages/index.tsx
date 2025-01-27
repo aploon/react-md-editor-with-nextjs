@@ -14,10 +14,10 @@ const geistMono = Geist_Mono({
 
 export default function Home() {
   // redirect to /react-md-editor
-  const router = useRouter();
-  if (typeof window !== "undefined") {
-    router.push("/react-md-editor");
-  }
+  // const router = useRouter();
+  // if (typeof window !== "undefined") {
+  //   router.push("/react-md-editor");
+  // }
 
   return (
     <div
