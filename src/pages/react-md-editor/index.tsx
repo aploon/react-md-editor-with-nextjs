@@ -29,7 +29,10 @@ const sayHello = () => {
             <MDEditor value={markdown} onChange={(value) => setMarkdown(value || '')} />
 
             <h2 className="text-xl font-semibold mt-8">Aperçu :</h2>
-            <MarkdownPreview markdown={markdown} />
+            <div className="markdown-body dark:bg-gray-800 dark:text-gray-200 p-10">
+                <MarkdownPreview markdown={markdown} />
+            </div>
+
         </div>
     );
 }

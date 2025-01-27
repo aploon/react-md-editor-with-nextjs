@@ -7,6 +7,7 @@ import rehypeStringify from 'rehype-stringify';
 import hljs from 'highlight.js';
 import 'github-markdown-css';
 import 'highlight.js/styles/github.css';
+import useDarkMode from '@/hooks/useDarkMode';
 
 interface MarkdownPreviewProps {
     markdown: string;
@@ -14,6 +15,7 @@ interface MarkdownPreviewProps {
 
 const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ markdown }) => {
     const [html, setHtml] = React.useState<string>('');
+    const {isDarkMode} = useDarkMode();
 
     React.useEffect(() => {
         const processMarkdown = async () => {
@@ -38,9 +40,11 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ markdown }) => {
         processMarkdown();
     }, [markdown]);
 
+
+
     return (
         <div
-            className="markdown-body"
+            className={`markdown-body ${isDarkMode ? 'markdown-body-dark' : ''}`}
             dangerouslySetInnerHTML={{ __html: html }}
         />
     );
