@@ -1,25 +1,28 @@
 // pages/editor.tsx
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
+import { readFileSync } from 'fs';
+import path, { join } from 'path';
 import MarkdownPreview from '@/components/MarkdownPreview';
 import useDarkMode from '@/hooks/useDarkMode';
+import { GetServerSideProps } from 'next';
 
 const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false });
 
-export default function EditorPage() {
-    const { isDarkMode } = useDarkMode();
-    const [markdown, setMarkdown] = useState<string>(`
-# Titre principal
+export const getServerSideProps: GetServerSideProps = async () => {
+    const filePath = path.join(process.cwd(), 'README.md');
+    const readmeContent = readFileSync(filePath, 'utf-8');
 
-Voici un paragraphe avec du **texte en gras** et *italique*.
-
-\`\`\`javascript
-// Exemple de code
-const sayHello = () => {
-    console.log('Hello, world!');
+    return {
+        props: {
+            readmeContent,
+        },
+    };
 };
-\`\`\`
-`);
+
+export default function EditorPage({ readmeContent }: { readmeContent: string }) {
+    const { isDarkMode } = useDarkMode();
+    const [markdown, setMarkdown] = useState<string>(readmeContent);
 
     return (
         <div className="container mx-auto py-8">
