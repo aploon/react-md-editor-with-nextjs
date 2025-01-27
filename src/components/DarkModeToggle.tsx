@@ -10,7 +10,7 @@ export default function DarkModeToggle() {
             onClick={toggleDarkMode}
             className="p-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
         >
-            {isDarkMode ? '🌙 Mode Sombre' : '☀️ Mode Clair'}
+            {isDarkMode ? '🌙 Dark Mode' : '☀️ Light Mode'}
         </button>
     );
 }

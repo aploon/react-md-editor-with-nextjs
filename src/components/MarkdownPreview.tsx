@@ -8,6 +8,7 @@ import rehypeStringify from 'rehype-stringify';
 import hljs from 'highlight.js';
 import 'github-markdown-css';
 import useDarkMode from '@/hooks/useDarkMode';
+import rehypeRaw from 'rehype-raw';
 
 interface MarkdownPreviewProps {
     markdown: string;
@@ -49,7 +50,8 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ markdown }) => {
         const processMarkdown = async () => {
             const file = await unified()
                 .use(remarkParse) // Convert Markdown to Markdown AST
-                .use(remarkRehype) // Transform Markdown AST to HTML AST
+                .use(remarkRehype, { allowDangerousHtml: true }) // Transform Markdown AST to HTML AST
+                .use(rehypeRaw) // Preserve raw HTML in Markdown
                 .use(rehypeSanitize) // Sanitize the HTML
                 .use(rehypeStringify) // Serialize HTML AST to string
                 .process(markdown);
@@ -72,10 +74,6 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({ markdown }) => {
     return (
         <div
             className="markdown-body"
-            style={{
-                backgroundColor: isDarkMode ? '#0d1117' : '#ffffff',
-                color: isDarkMode ? '#c9d1d9' : '#24292f'
-            }}
             dangerouslySetInnerHTML={{ __html: htmlContent }}
         />
     );
